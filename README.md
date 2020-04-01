@@ -8,5 +8,7 @@ An attempt to use NLP to identify tweets about real disasters
   <li>Say yes to creating with existing source</li>
   <li>In the terminal, run the following commands</li>
   <li>pip install pandas</li> 
+  <li>pip install matplotlib</li>
+  <li>pip install sqlalchemy</li>
   <li>Right click and run the main.py file to auto-create a run config</li>
 </ol>
