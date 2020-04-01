@@ -1,4 +1,4 @@
-from util import *
+from utility.util import *
 
 def print_disaster_dupe_summary():
     """

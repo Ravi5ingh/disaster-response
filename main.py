@@ -1,4 +1,4 @@
-from investigations import *
+from utility.investigations import *
 from sqlalchemy import create_engine
 
 # Check that the rows in the categories data all have 36 categories (If this doesn't print a 36, they don't)
