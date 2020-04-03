@@ -6,7 +6,7 @@ def print_disaster_dupe_summary():
     messages
     """
 
-    disaster = read_csv('data/disaster.csv')
+    disaster = read_csv('../data/disaster.csv')
 
     # Check for dupes
     ids = set()
@@ -28,7 +28,7 @@ def print_unique_lengths_of_categories():
     """
 
     lengths = set()
-    categories = read_csv('data/disaster_categories.csv')
+    categories = read_csv('../data/disaster_categories.csv')
 
     for index, row in categories.iterrows():
 
