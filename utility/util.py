@@ -3,6 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+def count_matching(condition, seq):
+    """Returns the amount of items in seq that return true from condition"""
+    return sum(1 for item in seq if condition(item))
+
 def normalize_confusion_matrix(cm_df):
     """
     Normalize the values in a confusion matrix to be between 0 and 1

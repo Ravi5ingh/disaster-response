@@ -9,6 +9,10 @@
   <li>pip install pandas</li> 
   <li>pip install matplotlib</li>
   <li>pip install sqlalchemy</li>
+  <li>pip install plotly</li>
+  <li>pip install nltk</li>
+  <li>pip install flask</li>
+  <li>pip install sklearn</li>
   <li>Right click and run the main.py file to auto-create a run config</li>
 </ol>
 
