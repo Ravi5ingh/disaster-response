@@ -1,5 +1,5 @@
 import sys
-import utility.util as ut
+import utility.util as u
 import pandas as pd
 import os
 
@@ -12,8 +12,8 @@ def load_data(messages_filepath, categories_filepath):
     :param categories_filepath: The file path for the categorization data
     :return: Merges the 2 sources on 'id' and returns the joined result
     """
-    messages = ut.read_csv(messages_filepath)
-    categories = ut.read_csv(categories_filepath)
+    messages = u.read_csv(messages_filepath)
+    categories = u.read_csv(categories_filepath)
 
     return pd.merge(messages, categories, on='id', how='inner')
 

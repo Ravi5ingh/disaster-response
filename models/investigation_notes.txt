@@ -1,0 +1,4 @@
+-Genre has these values and frequency
+    'social' - 10747
+    'direct' - 2394
+    'news' - 13039
