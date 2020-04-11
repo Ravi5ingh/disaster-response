@@ -1,5 +1,7 @@
 # Disaster Response Pipeline Project
 
+This is an attempt to use NLP and ML to identify tweets that refer to real disasters. This is very much a work in progress right now...
+
 ## PyCharm Setup
 <ol>
   <li>Clone this repo</li>
