@@ -15,6 +15,7 @@ This is an attempt to use NLP and ML to identify tweets that refer to real disas
   <li>pip install plotly</li>
   <li>pip install flask</li>
   <li>pip install sklearn</li>
+  <li>pip install pipetools</li>
   <li>pip install nltk</li>
   <li>python -m nltk.downloader -d venv/nltk_data all</li>
 </ol>

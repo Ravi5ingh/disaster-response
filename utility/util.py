@@ -3,16 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 
-def to_lower_alpha_numeric(x):
-    """
-    Given a string, lowers it, removes all non alpha-numeric characters and replaces numeric ones with ####
-    :param x: The given string
-    :return: The processed string
-    """
-
-    x = re.sub(r'[^a-zA-Z0-9 ]', '', x.lower())
-    return re.sub(r'[^a-zA-Z ]+', '###', x)
-
 def one_hot_encode(df, column_name, prefix = '', replace_column = True, insert_to_end = False):
     """
     Performs one hot encoding on the given column in the data and replaces this column with the
