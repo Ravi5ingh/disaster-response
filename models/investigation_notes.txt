@@ -2,3 +2,6 @@
     'social' - 10747
     'direct' - 2394
     'news' - 13039
+
+-'related' has 6,116 zeros, 19,876 ones, and 188 twos so 2s must be mistake
+-'child_alone' is always zero so it can be taken out, we can't predict it

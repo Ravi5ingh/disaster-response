@@ -11,12 +11,20 @@ from sklearn.decomposition import PCA
 from sklearn import svm
 from itertools import *
 
-def create_disaster_category_values_hist():
+def print_disaster_category_values():
     """
-    Creates a histogram of all the disaster category values (To find out if the '2's are a mistake)
+    Prints all the disaster category values (To find out if the '2's are a mistake)
     """
+    disaster = u.read_csv('data/disaster.csv')
+    non_cat_names = ['id', 'message', 'original', 'genre']
 
-    disaster = u.read_csv('')
+    for cat in list(dropwhile(lambda x: x in non_cat_names, disaster.columns)):
+        print(cat)
+        print('-------------------------')
+        for value in disaster[cat].unique():
+            print(str(value) + ' - ' + str(u.row_count(disaster[disaster[cat]==value])))
+        print()
+
 
 def create_readble_bias(bias_file_name, best_words_file):
     """

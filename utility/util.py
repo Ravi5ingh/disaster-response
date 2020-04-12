@@ -1,11 +1,46 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from datetime import datetime
+import re
 
-def count_matching(condition, seq):
-    """Returns the amount of items in seq that return true from condition"""
-    return sum(1 for item in seq if condition(item))
+def to_lower_alpha_numeric(x):
+    """
+    Given a string, lowers it, removes all non alpha-numeric characters and replaces numeric ones with ####
+    :param x: The given string
+    :return: The processed string
+    """
+
+    x = re.sub(r'[^a-zA-Z0-9 ]', '', x.lower())
+    return re.sub(r'[^a-zA-Z ]+', '###', x)
+
+def one_hot_encode(df, column_name, prefix = '', replace_column = True, insert_to_end = False):
+    """
+    Performs one hot encoding on the given column in the data and replaces this column with the
+    new one hot encoded columns
+    :param df: The data frame in question
+    :param column_name: The column to one hot encode
+    :param prefix: (Optional, Default: column_name) The prefix for the new columns
+    :param replace_column: (Optional, Default: True) Whether or not to replace the column to encode
+    :param insert_to_end: (Optional, Default: False) Whether or not to add encoded columns at the end
+    :return: The same data frame with the specified changes
+    """
+
+    dummies_insertion_index = df.columns.get_loc(column_name)
+    dummies = pd.get_dummies(df[column_name], prefix=column_name if prefix == '' else prefix)
+
+    if replace_column:
+        df = df.drop([column_name], axis=1)
+    else:
+        dummies_insertion_index += 1
+
+    if insert_to_end:
+        df = pd.concat([df, dummies], axis=1)
+    else:
+        for column_to_insert in dummies.columns:
+            df.insert(loc=dummies_insertion_index, column=column_to_insert, value=dummies[column_to_insert])
+            dummies_insertion_index += 1
+
+    return df
 
 def normalize_confusion_matrix(cm_df):
     """
