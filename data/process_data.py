@@ -63,13 +63,8 @@ def save_data(disaster_df, disaster_csv_filename, database_filename, table_name)
     # Persist the cleaned data as a csv file
     disaster_df.to_csv(disaster_csv_filename, index=False)
 
-    # If the DB file exists, delete it
-    if os.path.exists(database_filename):
-        os.remove(database_filename)
-
-    # Save data to an sqlite db
-    engine = create_engine('sqlite:///' + database_filename)
-    disaster_df.to_sql(table_name, engine, index=False)
+    # Persist data as SQLite DB file
+    u.save_df_to_sqlite(disaster_df, database_filename, table_name)
 
 
 def main():

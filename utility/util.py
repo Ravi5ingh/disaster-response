@@ -1,7 +1,25 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import re
+import os
+import sqlalchemy as sq
+
+def save_df_to_sqlite(df, database_filename, table_name, index = False):
+    """
+    Save a data frame as a SQLite DB file to the given location with the given table name
+    :param df: The data frame to save
+    :param database_filename: The DB file to create (NOTE: Will be replaced if it exists!)
+    :param index: (Optional, Default: True) Whether or not to create an index column in the saved table
+    :param table_name: The name of the table to contain the data frame data
+    """
+
+    # If the DB file exists, delete it
+    if os.path.exists(database_filename):
+        os.remove(database_filename)
+
+    # Save data to an sqlite db
+    engine = sq.create_engine('sqlite:///' + database_filename)
+    df.to_sql(table_name, engine, index=index)
 
 def one_hot_encode(df, column_name, prefix = '', replace_column = True, insert_to_end = False):
     """
