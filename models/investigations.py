@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import ast
 
 from sklearn.decomposition import PCA
 from sklearn import svm
@@ -26,11 +27,12 @@ def print_disaster_category_values():
         print()
 
 
-def create_readble_bias(bias_file_name, best_words_file):
+def create_readble_bias(bias_file_name, database_filename, table_name):
     """
-    Based on the bias file output, shows the best indicator words for each category in the output file
+    Based on the bias file output, creates new table and saves it to an SQLite DB
     :param bias_file_name: The file with all the word ==> category indicator data
-    :param best_words_file: The file name of the output file with the best words for each category
+    :param database_filename: The database file name
+    :param table_name: The name of the table
     """
 
     bias = u.read_csv(bias_file_name)
@@ -47,8 +49,8 @@ def create_readble_bias(bias_file_name, best_words_file):
         readable_bias[category + '_total'] = bias[category + '_total']
         readable_bias[category + '_bias'] = bias[category + '_bias']
 
-    readable_bias.to_csv(best_words_file, index=False)
 
+    u.save_df_to_sqlite(readable_bias, database_filename, table_name)
 
 
 
@@ -61,7 +63,8 @@ def create_word_bias_data(disaster_csv, bias_file_name):
 
     # Read data
     disaster = u.read_csv(disaster_csv)
-    non_category_names = ['id', 'message', 'original', 'genre']
+    disaster['message'] = disaster['message'].apply(ast.literal_eval)
+    non_category_names = ['id', 'message', 'original', 'genre_direct', 'genre_news', 'genre_social']
     category_names = list(dropwhile(lambda x: x in non_category_names, disaster.columns))
 
     # Record word to category frequency mapping
@@ -69,7 +72,7 @@ def create_word_bias_data(disaster_csv, bias_file_name):
     total = u.row_count(disaster)
     for index, row in disaster.iterrows():
 
-        for word in row['message'].upper().split(' '):
+        for word in row['message']:
 
             if word not in bias_data:
                 bias_data[word] = {}

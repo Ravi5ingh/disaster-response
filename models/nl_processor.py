@@ -18,7 +18,7 @@ def normalize_messages(disaster_df):
                                                            | __normalize_text__
                                                            | __tokenize_text__
                                                            | __remove_stopwords__
-                                                           | __stem_text__
+                                                           # | __stem_text__
                                                            | __lemmatize_text__) (message))
 
     return disaster_df
