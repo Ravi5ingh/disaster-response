@@ -51,12 +51,13 @@ def clean_data(disaster_df):
     return disaster_df
 
 
-def save_data(disaster_df, disaster_csv_filename, database_filename):
+def save_data(disaster_df, disaster_csv_filename, database_filename, table_name):
     """
     Save the cleaned disaster data frame as a csv and a DB file (DB file will be replaced if it exists)
     :param disaster_df: The cleaned disaster data frame
     :param disaster_csv_filename: The name of the csv file to save to
     :param database_filename: The name of the DB file to create
+    :param table_name: The name of the table to create in the DB file
     """
 
     # Persist the cleaned data as a csv file
@@ -68,7 +69,7 @@ def save_data(disaster_df, disaster_csv_filename, database_filename):
 
     # Save data to an sqlite db
     engine = create_engine('sqlite:///' + database_filename)
-    disaster_df.to_sql(database_filename, engine, index=False)
+    disaster_df.to_sql(table_name, engine, index=False)
 
 
 def main():
@@ -76,13 +77,13 @@ def main():
     Point of entry (Takes 4 to 5 arguments)
     """
 
-    if len(sys.argv) == 5 or len(sys.argv) == 4:
+    if len(sys.argv) == 6 or len(sys.argv) == 5:
+
+        if len(sys.argv) == 6:
+            messages_filepath, categories_filepath, database_filepath, table_name, disaster_csv_filename = sys.argv[1:]
 
         if len(sys.argv) == 5:
-            messages_filepath, categories_filepath, database_filepath, disaster_csv_filename = sys.argv[1:]
-
-        if len(sys.argv) == 4:
-            messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
+            messages_filepath, categories_filepath, database_filepath, table_name = sys.argv[1:]
             disaster_csv_filename = 'disaster.csv'
 
         print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
@@ -92,8 +93,9 @@ def main():
         print('Cleaning data...')
         df = clean_data(df)
         
-        print('Saving data...\n    DATABASE: {}, CSV FILE: {}'.format(database_filepath, disaster_csv_filename))
-        save_data(df, disaster_csv_filename, database_filepath)
+        print('Saving data...\n    DATABASE: {}, TABLE: {}, CSV FILE: {}'
+              .format(database_filepath, table_name, disaster_csv_filename))
+        save_data(df, disaster_csv_filename, database_filepath, table_name)
         
         print('Cleaned data saved to database!')
     
@@ -101,10 +103,10 @@ def main():
         print('Please provide the filepaths of the messages and categories '\
               'datasets as the first and second argument respectively, as '\
               'well as the filepath of the database to save the cleaned data '\
-              'to as the third argument. Fourth argument (optional) is csv file '
-              'name for output data \n\nExample: python process_data.py '\
-              'disaster_messages.csv disaster_categories.csv '\
-              'DisasterResponse.db [disaster.csv]')
+              'to and a table name as the third argument and fourth arguments'\
+              ' respectively. Fifth argument (optional) is csv file name for output'\
+              ' data \n\nExample: python -m data.process_data.py disaster_messages.csv '\
+              'disaster_categories.csv DisasterResponse.db Disaster [disaster.csv]')
 
 
 if __name__ == '__main__':
