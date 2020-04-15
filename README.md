@@ -7,8 +7,8 @@ This is an attempt to use NLP and ML to identify tweets that refer to real disas
   <li>Clone this repo</li>
   <li>Open a PyCharm project in the directory where you cloned it</li>
   <li>Make sure you select virtal python environment with a 'venv' folder in the root directory</li>
-  <li>Say yes to creating with existing source</li>
-  <li>In the terminal, run the following commands</li>
+  <li>Say NO to creating with existing source. PyCharm will now create a virtual environment</li>
+  <li>Open the PyCharm terminal window. If not already, navigate to the root directory (disaster-response)</li>
   <li>pip install pandas</li> 
   <li>pip install matplotlib</li>
   <li>pip install sqlalchemy</li>
@@ -16,6 +16,7 @@ This is an attempt to use NLP and ML to identify tweets that refer to real disas
   <li>pip install flask</li>
   <li>pip install sklearn</li>
   <li>pip install pipetools</li>
+  <li>pip install gensim</li>
   <li>pip install nltk</li>
   <li>python -m nltk.downloader -d venv/nltk_data all</li>
 </ol>
