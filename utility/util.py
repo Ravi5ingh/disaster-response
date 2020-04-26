@@ -22,11 +22,11 @@ def download_gdrive_file(file_id, output_file_path):
 
     session = rq.Session()
 
-    response = session.get(URL, params = { 'id' : id }, stream = True)
+    response = session.get(URL, params = { 'id' : file_id }, stream = True)
     token = __get_confirm_token__(response)
 
     if token:
-        params = { 'id' : id, 'confirm' : token }
+        params = { 'id' : file_id, 'confirm' : token }
         response = session.get(URL, params = params, stream = True)
 
     __save_response_content__(response, output_file_path)
@@ -137,7 +137,7 @@ def try_word2vec(word):
     # Use Google's model
     else:
         if google_word2vec_model is None:
-            print('Need to load Google Word2Vec Model. Loading...')
+            print('Need to load Google word2vec Model')
 
             # Check if model exists, download otherwise
             if not os.path.exists(model_filename):
@@ -145,8 +145,9 @@ def try_word2vec(word):
                 download_gdrive_file('1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO', model_filename) # Hard-coded file id
                 print('')
 
+            print('Loading Google word2vec model...')
             google_word2vec_model = gs.models.KeyedVectors.load_word2vec_format(model_filename, binary=True)
-            print('Done')
+            print('Done loading Google word2vec model')
 
         try:
             word2vec_cache[word] = google_word2vec_model[word]
@@ -429,9 +430,9 @@ def __save_response_content__(response, output_file_name):
                     sy.stdout.write('\r' + '[                                                  ]'
                                      .replace(' ', ':', int(percentage / 2)) + ' ' + str(
                         min(int(percentage), 100)) + '% (' + str(round(mb_sofar, 2)) + 'MB)')
-                    f.write(chunk)
                 else:
                     sy.stdout.write('\r' + 'Unknown file size. ' + str(round(mb_sofar, 2)) + 'MB downloaded')
+                f.write(chunk)
                 i += 1
     print('')
 
