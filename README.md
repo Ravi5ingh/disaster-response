@@ -34,3 +34,9 @@ This is an attempt to use NLP and ML to identify tweets that refer to real disas
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+## Hosted Model URLs
+* Google's trained word2vec model: 
+https://drive.google.com/uc?export=download&confirm=wNia&id=1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO
+https://drive.google.com/uc?id=1Wh_uQ62XHruBSDSA5Ujb-eY6OcOLDRW-&export=download
+* word2vec cache: https://drive.google.com/uc?id=1Wh_uQ62XHruBSDSA5Ujb-eY6OcOLDRW-&export=download

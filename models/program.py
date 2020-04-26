@@ -2,15 +2,35 @@ import utility.util as u
 import models.nl_processor as nlp
 import models.investigations as inv
 import ast
+import numpy as np
+import scipy.spatial as spa
+import math
+import gensim as gs
 
-disaster = u.read_csv('../data/disaster.csv')\
-    .pipe(nlp.remove_columns)\
-    .pipe(nlp.one_hot_encode_genre)\
-    .pipe(nlp.normalize_related_category_values)\
-    .pipe(nlp.normalize_messages)
+# u.download_file('https://drive.google.com/uc?id=1Wh_uQ62XHruBSDSA5Ujb-eY6OcOLDRW-&export=download', 'word2vec/word2vec_cache.pkl')
 
-disaster.to_csv('disaster_tokenized.csv', index=False)
+v, s = u.try_word2vec('asddss')
+print(v)
 
-inv.create_word_bias_data('disaster_tokenized.csv', 'disaster_bias.csv')
+# file_id = '1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO'
+# destination = 'word2vec/GoogleWord2VecModel.bin'
+# print('Downloading...')
+# u.download_file_from_google_drive(file_id, destination)
+# print('Done')
 
-inv.create_readble_bias('disaster_bias.csv', 'investigation_results/DisasterBias.db', 'DisasterBias')
+# file = 'D:\Ravi\workspace\disaster-response\models\word2vec\GoogleWord2VecModel_downloaded.bin'
+# google_word2vec_model = gs.models.KeyedVectors.load_word2vec_format(file, binary=True)
+# print(google_word2vec_model['fire'])
+
+# cache = u.read_pkl('word2vec/word2vec_cache.pkl')
+# print(cache['fire'])
+
+
+# disaster_df = u.read_csv('investigation_results/try_nn/disaster_normalized.csv')
+# disaster_df['message'] = disaster_df['message'].apply(ast.literal_eval)
+
+# inv.try_nn_avgvec_with(disaster_df, 'weather_related', 'deleteme.pkl')
+#
+# inv.show_disaster_pca_avgvec(disaster_df, 'search_and_rescue')
+#
+# inv.pca_compare_categories(disaster_df, 'shelter', 'transport')
