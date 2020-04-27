@@ -141,9 +141,9 @@ def try_word2vec(word):
 
             # Check if model exists, download otherwise
             if not os.path.exists(model_filename):
-                print('Google word2vec model not found. Will download...')
+                print('Google word2vec model not found. Will download (~3.5GB)...')
                 download_gdrive_file('1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO', model_filename) # Hard-coded file id
-                print('')
+                print('Done downloading Google word2vec model')
 
             print('Loading Google word2vec model...')
             google_word2vec_model = gs.models.KeyedVectors.load_word2vec_format(model_filename, binary=True)
