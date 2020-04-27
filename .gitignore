@@ -1,4 +1,7 @@
 venv/
 .idea/
 __pycache__/
+
+# Need to find a binary storage solutions for these files
 GoogleWord2VecModel.bin
+sparse_vector_pipeline.pkl
