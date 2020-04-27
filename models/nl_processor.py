@@ -15,11 +15,10 @@ def normalize_messages(disaster_df):
 
     disaster_df['message'] = disaster_df['message'].apply(lambda message:
                                                           (pt.pipe
-                                                           | __normalize_text__
-                                                           | __tokenize_text__
-                                                           | __remove_stopwords__
-                                                           # | __stem_text__
-                                                           | __lemmatize_text__) (message))
+                                                           | normalize_text
+                                                           | tokenize_text
+                                                           | remove_stopwords
+                                                           | lemmatize_text)(message))
 
     return disaster_df
 
@@ -52,9 +51,7 @@ def normalize_related_category_values(disaster_df):
 
     return disaster_df
 
-# region Private
-
-def __normalize_text__(text, num_value='num_value'):
+def normalize_text(text, num_value='num_value'):
     """
     Normalize a message for analysis (ie. convert to lower case alpha numeric text)
     :param text: The input text
@@ -64,7 +61,7 @@ def __normalize_text__(text, num_value='num_value'):
 
     return re.sub(r'[^a-zA-Z ]+', num_value, re.sub(r'[^a-zA-Z0-9 ]', '', text.lower()))
 
-def __tokenize_text__(text):
+def tokenize_text(text):
     """
     Splits text into an array of tokens
     :param text: The input text
@@ -73,7 +70,7 @@ def __tokenize_text__(text):
 
     return tkn.word_tokenize(text)
 
-def __remove_stopwords__(tokenized_text):
+def remove_stopwords(tokenized_text):
     """
     Removes stopwords from a piece of text
     :param tokenized_text: The input text array of tokens
@@ -82,7 +79,7 @@ def __remove_stopwords__(tokenized_text):
 
     return [token for token in tokenized_text if token not in __stop_words__]
 
-def __stem_text__(tokenized_text):
+def stem_text(tokenized_text):
     """
     Stems all tokens in the input tokenized text
     :param tokenized_text: The tokenized text
@@ -91,7 +88,7 @@ def __stem_text__(tokenized_text):
 
     return [__stemmer__.stem(token) for token in tokenized_text]
 
-def __lemmatize_text__(tokenized_text):
+def lemmatize_text(tokenized_text):
     """
     Lemmatizes all tokens in the input tokenized text
     :param tokenized_text: The tokenized text
@@ -99,6 +96,8 @@ def __lemmatize_text__(tokenized_text):
     """
 
     return [__lemmatizer__.lemmatize(token) for token in tokenized_text]
+
+#region Private
 
 # Locally initialized stop words (optimization)
 __stop_words__ = co.stopwords.words('english')

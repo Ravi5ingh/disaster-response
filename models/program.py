@@ -6,10 +6,15 @@ import numpy as np
 import scipy.spatial as spa
 import math
 import gensim as gs
-import sklearn.feature_extraction.text as st
+import sklearn.feature_extraction.text as te
 import models.pipelines as pi
+import models.sparsevec_randomforest_pipeline as sp
+import models.test_obj as tt
+import statistics as st
 
 
-# pi.create_disaster_sequence('../data/disaster.csv', 'weather_related')
+pipeline = sp.SparseVecRandomForestPipeline('../data/disaster.csv')
 
-pi.create_disaster_pipeline('../data/disaster.csv', 'weather_related')
+pipeline.init_fit_eval()
+
+u.to_pkl(pipeline, 'investigation_results/random_forest/test.pkl')
