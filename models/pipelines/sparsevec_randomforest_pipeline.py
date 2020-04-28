@@ -4,9 +4,9 @@ import sklearn.feature_extraction.text as te
 import sklearn.ensemble as en
 import sklearn.metrics as me
 import numpy as np
-import utility.util as u
+import utility.util as ut
 import pipetools as pt
-import models.nl_processor as nl
+import models.nl.processor as nl
 import statistics as st
 
 class SparseVecRandomForestPipeline:
@@ -15,13 +15,14 @@ class SparseVecRandomForestPipeline:
     message column and trained with the Random Forest Classifier
     """
 
-    def __init__(self, disaster_csv_file_name):
+    def __init__(self, disaster_db_file, disaster_table_name):
         """
         .ctor
-        :param disaster_csv_file_name: The file path for the disaster csv
+        :param disaster_db_file: The file path for the disaster db file of the data
+        :param disaster_table_name: The name of the table inside the DB that stores the data
         """
 
-        self.__disaster__ = u.read_csv(disaster_csv_file_name)
+        self.__disaster__ = ut.read_db(disaster_db_file, disaster_table_name)
 
         self.__categories_columns__ = ['related', 'request', 'offer',
                                   'aid_related', 'medical_help', 'medical_products', 'search_and_rescue',

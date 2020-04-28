@@ -1,5 +1,5 @@
-import models.investigations as inv
-# import utility.util as u
+import models.investigation_code.investigations as inv
+# import utility.util as ut
 # import gensim
 
 inv.show_disaster_pca_for('death')
@@ -15,7 +15,7 @@ inv.show_disaster_pca_for('death')
 #
 # model = gensim.models.Word2Vec(sentences, min_count=1)
 
-# disaster = u.read_csv('../disaster.csv')
+# disaster = ut.read_csv('../disaster.csv')
 #
 # disaster['message'] = disaster['message'].apply(lambda x: x.upper().split())
 #
@@ -37,7 +37,7 @@ inv.show_disaster_pca_for('death')
 #     print(model[word])
 #     input()
 
-# u.whats(model.wv.vocab)
+# ut.whats(model.wv.vocab)
 #
 # for vector in model.wv.vocab:
 #
@@ -45,7 +45,7 @@ inv.show_disaster_pca_for('death')
 #
 #     print(model[vector])
 #
-#     u.whats(vector)
+#     ut.whats(vector)
 #
 #     input()
 

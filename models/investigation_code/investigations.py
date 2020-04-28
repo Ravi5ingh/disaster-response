@@ -1,24 +1,19 @@
 import gensim
-import string
 
-import utility.util as u
+import utility.util as ut
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import scipy.spatial as spa
-import pickle as pk
 import sklearn.neural_network as nn
 import sklearn.model_selection as ms
 import sklearn.metrics as me
 
 import ast
 import os
-import math
-import models.nl_processor as nlp
+import models.nl.processor as nlp
 
 from sklearn.decomposition import PCA
-from sklearn import svm
 from itertools import *
 
 def show_disaster_tsne(disaster_df, category_name):
@@ -33,7 +28,7 @@ def show_disaster_tsne(disaster_df, category_name):
 
     disaster_df = disaster_df.sample(10000)
 
-    total = u.row_count(disaster_df)
+    total = ut.row_count(disaster_df)
 
     words = []
     X = []
@@ -47,7 +42,7 @@ def show_disaster_tsne(disaster_df, category_name):
                 continue
 
             # Process the rest
-            vector, op_success = u.try_word2vec(word)
+            vector, op_success = ut.try_word2vec(word)
             if op_success:
                 words.append(word)
                 message_vectors.append(vector)
@@ -59,7 +54,7 @@ def show_disaster_tsne(disaster_df, category_name):
         if index%10000==0:
             print('Done ' + str(index) + ' of ' + str(total))
 
-    u.show_2d_tsne(X, Y, ['r', 'g'])
+    ut.show_2d_tsne(X, Y, ['r', 'g'])
 
 def pca_compare_categories(disaster_df, category_zero, category_one):
     """
@@ -71,7 +66,7 @@ def pca_compare_categories(disaster_df, category_zero, category_one):
 
     word_frequency = get_disaster_word_frequency(disaster_df)
 
-    total = u.row_count(disaster_df)
+    total = ut.row_count(disaster_df)
 
     words = []
     X = []
@@ -85,7 +80,7 @@ def pca_compare_categories(disaster_df, category_zero, category_one):
                 continue
 
             # Process the rest
-            vector, op_success = u.try_word2vec(word)
+            vector, op_success = ut.try_word2vec(word)
             if op_success:
                 words.append(word)
                 message_vectors.append(vector)
@@ -104,7 +99,7 @@ def pca_compare_categories(disaster_df, category_zero, category_one):
         if index % 10000 == 0:
             print('Done ' + str(index) + ' of ' + str(total))
 
-    u.show_2d_pca(X, Y, ['red', 'green', 'blue', 'purple'])
+    ut.show_2d_pca(X, Y, ['red', 'green', 'blue', 'purple'])
 
 def show_disaster_pca_avgvec(disaster_df, category_name):
     """
@@ -115,7 +110,7 @@ def show_disaster_pca_avgvec(disaster_df, category_name):
 
     word_frequency = get_disaster_word_frequency(disaster_df)
 
-    total = u.row_count(disaster_df)
+    total = ut.row_count(disaster_df)
 
     words = []
     X = []
@@ -129,7 +124,7 @@ def show_disaster_pca_avgvec(disaster_df, category_name):
                 continue
 
             # Process the rest
-            vector, op_success = u.try_word2vec(word)
+            vector, op_success = ut.try_word2vec(word)
             if op_success:
                 words.append(word)
                 message_vectors.append(vector)
@@ -141,7 +136,7 @@ def show_disaster_pca_avgvec(disaster_df, category_name):
         if index%10000==0:
             print('Done ' + str(index) + ' of ' + str(total))
 
-    u.show_2d_pca(X, Y, ['r', 'g'])
+    ut.show_2d_pca(X, Y, ['r', 'g'])
 
 def try_nn_avgvec_with(disaster_df, category_name, outout_model_filename):
     """
@@ -153,7 +148,7 @@ def try_nn_avgvec_with(disaster_df, category_name, outout_model_filename):
 
     word_frequency = get_disaster_word_frequency(disaster_df)
 
-    total = u.row_count(disaster_df)
+    total = ut.row_count(disaster_df)
 
     words = []
     X = []
@@ -167,7 +162,7 @@ def try_nn_avgvec_with(disaster_df, category_name, outout_model_filename):
                 continue
 
             # Process the rest
-            vector, op_success = u.try_word2vec(word)
+            vector, op_success = ut.try_word2vec(word)
             if op_success:
                 words.append(word)
                 message_vectors.append(vector)
@@ -196,7 +191,7 @@ def try_nn_with(disaster_df, category_name):
 
     word_frequency = get_disaster_word_frequency(disaster_df)
 
-    total = u.row_count(disaster_df)
+    total = ut.row_count(disaster_df)
 
     words = []
     X = []
@@ -210,7 +205,7 @@ def try_nn_with(disaster_df, category_name):
 
             # Process the rest
             words.append(word)
-            vector, op_success = u.try_word2vec(word)
+            vector, op_success = ut.try_word2vec(word)
             if(op_success):
                 X.append(vector)
                 Y.append(row[category_name])
@@ -250,7 +245,7 @@ def nn_train_save_show_results(X, Y, hidden_layer_sizes, model_file_name, test_s
     model.fit(x_train, y_train)
 
     # Save the model
-    u.to_pkl(model, model_file_name)
+    ut.to_pkl(model, model_file_name)
 
     # Assess the model
     y_pred = model.predict(x_test)
@@ -266,7 +261,7 @@ def create_normalized_disaster_to(file_name):
     :param file_name: The name to output to
     """
 
-    disaster = u.read_csv('../data/disaster.csv')\
+    disaster = ut.read_csv('../data/disaster.csv')\
         .pipe(nlp.remove_columns)\
         .pipe(nlp.one_hot_encode_genre)\
         .pipe(nlp.normalize_related_category_values)\
@@ -295,7 +290,7 @@ def show_weather_pca(word_vector_dir, weather_words_csv):
     :return:
     """
 
-    weather_words = u.read_csv(weather_words_csv)
+    weather_words = ut.read_csv(weather_words_csv)
 
     X = []
     Y = []
@@ -335,8 +330,8 @@ def show_weather_pca(word_vector_dir, weather_words_csv):
 
 def create_word_vectors(model_bin_file, weather_words_csv, all_words_csv, output_dir, all_word_sample_size=500):
 
-    weather = u.read_csv(weather_words_csv)
-    all = u.read_csv(all_words_csv).sample(all_word_sample_size)
+    weather = ut.read_csv(weather_words_csv)
+    all = ut.read_csv(all_words_csv).sample(all_word_sample_size)
 
     model = gensim.models.KeyedVectors.load_word2vec_format(model_bin_file, binary=True)
 
@@ -356,14 +351,14 @@ def print_disaster_category_values():
     """
     Prints all the disaster category values (To find out if the '2's are a mistake)
     """
-    disaster = u.read_csv('data/disaster.csv')
+    disaster = ut.read_csv('data/disaster.csv')
     non_cat_names = ['id', 'message', 'original', 'genre']
 
     for cat in list(dropwhile(lambda x: x in non_cat_names, disaster.columns)):
         print(cat)
         print('-------------------------')
         for value in disaster[cat].unique():
-            print(str(value) + ' - ' + str(u.row_count(disaster[disaster[cat]==value])))
+            print(str(value) + ' - ' + str(ut.row_count(disaster[disaster[cat]==value])))
         print()
 
 def create_readble_bias(bias_file_name, database_filename, table_name):
@@ -374,7 +369,7 @@ def create_readble_bias(bias_file_name, database_filename, table_name):
     :param table_name: The name of the table
     """
 
-    bias = u.read_csv(bias_file_name)
+    bias = ut.read_csv(bias_file_name)
     readable_bias = pd.DataFrame()
 
     for column in list(dropwhile(lambda x: '_bias' not in x, bias.columns)):
@@ -389,7 +384,7 @@ def create_readble_bias(bias_file_name, database_filename, table_name):
         readable_bias[category + '_bias'] = bias[category + '_bias']
 
 
-    u.save_df_to_sqlite(readable_bias, database_filename, table_name)
+    ut.save_df_to_sqlite(readable_bias, database_filename, table_name)
 
 def create_word_bias_data(disaster_csv, bias_file_name):
     """
@@ -399,14 +394,14 @@ def create_word_bias_data(disaster_csv, bias_file_name):
     """
 
     # Read data
-    disaster = u.read_csv(disaster_csv)
+    disaster = ut.read_csv(disaster_csv)
     disaster['message'] = disaster['message'].apply(ast.literal_eval)
     non_category_names = ['id', 'message', 'original', 'genre_direct', 'genre_news', 'genre_social']
     category_names = list(dropwhile(lambda x: x in non_category_names, disaster.columns))
 
     # Record word to category frequency mapping
     bias_data = {}
-    total = u.row_count(disaster)
+    total = ut.row_count(disaster)
     for index, row in disaster.iterrows():
 
         for word in row['message']:
@@ -452,9 +447,9 @@ def find_most_biased_word_for(category_name):
     :param category_name: The name fo the target category
     """
 
-    disaster = u.read_csv('disaster.csv')
+    disaster = ut.read_csv('disaster.csv')
 
-    num_rows = u.row_count(disaster)
+    num_rows = ut.row_count(disaster)
 
     word_target_count = {}
     for index, row in disaster.iterrows():
@@ -492,12 +487,12 @@ def show_disaster_pca_for(category_name):
 
     model = gensim.models.Word2Vec.load('disaster.model')
 
-    disaster = u.read_csv('disaster.csv')
+    disaster = ut.read_csv('disaster.csv')
 
     X = []
     Y = []
 
-    num_rows = u.row_count(disaster)
+    num_rows = ut.row_count(disaster)
 
     for index, row in disaster.iterrows():
         for word in row['message'].upper().split(' '):
@@ -538,7 +533,7 @@ def print_word_frequency():
     Prints the word frequency in messages, from most frequent word to least frequent
     """
 
-    messages = u.read_csv('../disaster.csv')
+    messages = ut.read_csv('../disaster.csv')
 
     message_words = messages['message'].apply(lambda x: x.lower().split(' '))
 
@@ -561,7 +556,7 @@ def print_disaster_dupe_summary():
     messages
     """
 
-    disaster = u.read_csv('../data/disaster.csv')
+    disaster = ut.read_csv('../data/disaster.csv')
 
     # Check for dupes
     ids = set()
@@ -569,7 +564,7 @@ def print_disaster_dupe_summary():
 
     dupe_ids = []
     for id in ids:
-        if u.row_count(disaster[disaster['id'] == id]) > 1:
+        if ut.row_count(disaster[disaster['id'] == id]) > 1:
             print(id)
             dupe_ids.append(id)
 
@@ -583,7 +578,7 @@ def print_unique_lengths_of_categories():
     """
 
     lengths = set()
-    categories = u.read_csv('../data/disaster_categories.csv')
+    categories = ut.read_csv('../data/disaster_categories.csv')
 
     for index, row in categories.iterrows():
 

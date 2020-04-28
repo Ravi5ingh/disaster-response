@@ -179,6 +179,17 @@ def to_pkl(obj, file_name):
     with open(file_name, 'wb') as file:
         pkl.dump(obj, file)
 
+def read_db(database_filename, table_name):
+    """
+    Read a db file and return it as a dataframe
+    :param database_filename: The DB file path
+    :param table_name: The table name
+    :return: The dataframe
+    """
+
+    engine = sq.create_engine('sqlite:///' + database_filename)
+    return pd.read_sql(table_name, con=engine)
+
 def save_df_to_sqlite(df, database_filename, table_name, index = False):
     """
     Save a data frame as a SQLite DB file to the given location with the given table name

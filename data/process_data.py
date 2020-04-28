@@ -1,5 +1,5 @@
 import sys
-import utility.util as u
+import utility.util as ut
 import pandas as pd
 import os
 
@@ -12,8 +12,8 @@ def load_data(messages_filepath, categories_filepath):
     :param categories_filepath: The file path for the categorization data
     :return: Merges the 2 sources on 'id' and returns the joined result
     """
-    messages = u.read_csv(messages_filepath)
-    categories = u.read_csv(categories_filepath)
+    messages = ut.read_csv(messages_filepath)
+    categories = ut.read_csv(categories_filepath)
 
     return pd.merge(messages, categories, on='id', how='inner')
 
@@ -64,7 +64,7 @@ def save_data(disaster_df, disaster_csv_filename, database_filename, table_name)
     disaster_df.to_csv(disaster_csv_filename, index=False)
 
     # Persist data as SQLite DB file
-    u.save_df_to_sqlite(disaster_df, database_filename, table_name)
+    ut.save_df_to_sqlite(disaster_df, database_filename, table_name)
 
 
 def main():

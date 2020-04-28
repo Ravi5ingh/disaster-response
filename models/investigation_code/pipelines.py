@@ -3,7 +3,7 @@ import nltk.corpus as co
 import nltk.stem.porter as po
 import nltk.stem.wordnet as wo
 import nltk.tokenize as tkn
-import utility.util as u
+import utility.util as ut
 import sklearn.feature_extraction.text as st
 import sklearn.ensemble as en
 import sklearn.model_selection as ms
@@ -14,7 +14,7 @@ import pipetools as pt
 
 def create_disaster_pipeline(disaster_csv_path, category_name):
 
-    disaster = u.read_csv(disaster_csv_path)
+    disaster = ut.read_csv(disaster_csv_path)
 
     print('Getting data...')
     X = disaster['message'].values
@@ -45,7 +45,7 @@ def create_disaster_pipeline(disaster_csv_path, category_name):
 
 def create_disaster_sequence(disaster_csv_path, category_name):
 
-    disaster = u.read_csv(disaster_csv_path)
+    disaster = ut.read_csv(disaster_csv_path)
 
     print('Getting Data...')
     X = disaster['message'].values

@@ -1,4 +1,4 @@
-import utility.util as u
+import utility.util as ut
 import re as re
 import nltk.tokenize as tkn
 import nltk.corpus as co
@@ -29,7 +29,7 @@ def one_hot_encode_genre(disaster_df):
     :return: One hot encoded disaster data frame
     """
 
-    return u.one_hot_encode(disaster_df, 'genre')
+    return ut.one_hot_encode(disaster_df, 'genre')
 
 def remove_columns(disaster_df):
     """
