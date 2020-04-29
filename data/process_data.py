@@ -64,7 +64,7 @@ def save_data(disaster_df, disaster_csv_filename, database_filename, table_name)
     disaster_df.to_csv(disaster_csv_filename, index=False)
 
     # Persist data as SQLite DB file
-    ut.save_df_to_sqlite(disaster_df, database_filename, table_name)
+    ut.to_db(disaster_df, database_filename, table_name)
 
 
 def main():

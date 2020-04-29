@@ -190,11 +190,11 @@ def read_db(database_filename, table_name):
     engine = sq.create_engine('sqlite:///' + database_filename)
     return pd.read_sql(table_name, con=engine)
 
-def save_df_to_sqlite(df, database_filename, table_name, index = False):
+def to_df(df, database_filename, table_name, index = False):
     """
     Save a data frame as a SQLite DB file to the given location with the given table name
     :param df: The data frame to save
-    :param database_filename: The DB file to create (NOTE: Will be replaced if it exists!)
+    :param database_filename: The DB file to create (NOTE: Will be replaced if it exists)
     :param index: (Optional, Default: False) Whether or not to create an index column in the saved table
     :param table_name: The name of the table to contain the data frame data
     """

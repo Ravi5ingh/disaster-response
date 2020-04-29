@@ -384,7 +384,7 @@ def create_readble_bias(bias_file_name, database_filename, table_name):
         readable_bias[category + '_bias'] = bias[category + '_bias']
 
 
-    ut.save_df_to_sqlite(readable_bias, database_filename, table_name)
+    ut.to_db(readable_bias, database_filename, table_name)
 
 def create_word_bias_data(disaster_csv, bias_file_name):
     """
