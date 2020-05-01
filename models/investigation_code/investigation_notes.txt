@@ -5,3 +5,19 @@
 
 -'related' has 6,116 zeros, 19,876 ones, and 188 twos so 2s must be mistake
 -'child_alone' is always zero so it can be taken out, we can't predict it
+
+
+G Drive models folder link
+https://drive.google.com/drive/folders/1PhXxVe60NWzAPKrebu2xUzHYyaB1EJli?usp=sharing
+
+Google's trained word2vec model
+https://drive.google.com/file/d/1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO/view?usp=sharing
+
+My word2vec cache
+https://drive.google.com/file/d/1Wh_uQ62XHruBSDSA5Ujb-eY6OcOLDRW-/view?usp=sharing
+
+
+0B1fGSuBXAh1IeEpzajRISkNHckU
+1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO
+https://drive.google.com/file/d/1kzCpXqZ_EILFAfK4G96QZBrjtezxjMiO/view?usp=sharing
+https://drive.google.com/file/d/1Wh_uQ62XHruBSDSA5Ujb-eY6OcOLDRW-/view?usp=sharing

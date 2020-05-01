@@ -10,6 +10,19 @@ import sklearn.manifold as ma
 import requests as rq
 import sys as sy
 
+def to_txt(text, file_name):
+
+    with open(file_name, "w") as text_file:
+        text_file.write(text)
+
+def printover(text):
+    """
+    Print over the last printed line
+    :param text: The text to print
+    """
+
+    sy.stdout.write('\r' + text)
+
 def download_gdrive_file(file_id, output_file_path):
     """
     Download a file from Google Drive given its file id

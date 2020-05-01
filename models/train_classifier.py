@@ -23,7 +23,7 @@ def main():
               'as the first argument, the table name as the second argument, and'
               ' the filepath of the pickle file to save the model to as the third'
               ' argument. \n\nExample: python -m models.train_classifier '
-              'data/DisasterResponse.db Disaster models/classifier.pkl')
+              'data/DisasterResponse.db Disaster models/model.pkl')
 
 
 if __name__ == '__main__':

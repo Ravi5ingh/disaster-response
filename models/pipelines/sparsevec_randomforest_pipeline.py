@@ -69,16 +69,10 @@ class SparseVecRandomForestPipeline:
 
             self.__add_to_summary__(category, y_test, y_pred)
 
-            print('Fitted ' + str(i) + ' out of ' + str(num_cats) + ' models')
+            ut.printover('Fitted ' + str(i) + ' out of ' + str(num_cats) + ' models')
             i += 1
 
-        print('Done fitting. Model Evaluation Summary')
-        for category in self.__readable_summary__:
-
-            print('------' + str(category) + '------')
-            print(self.__readable_summary__[category])
-
-        print('Overall Accuracy: ' + str(st.mean(self.__accuracies__.values())))
+        print('\nDone fitting. Overall Accuracy: ' + str(st.mean(self.__accuracies__.values())))
 
     def predict(self, tweet):
         """
