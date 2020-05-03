@@ -1,5 +1,4 @@
 import sys
-import models.pipelines.sparsevec_randomforest_pipeline as sp
 import models.pipelines.neural_word2vec_pipeline as nn
 import utility.util as ut
 

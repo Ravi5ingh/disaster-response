@@ -2,7 +2,7 @@ import json as js
 import plotly as pl
 import flask as fl
 import utility.util as ut
-
+import global_variables as gl
 
 app = fl.Flask(__name__)
 
@@ -22,12 +22,31 @@ model = ut.read_pkl(model_filename)
 @app.route('/')
 @app.route('/index')
 def index():
-    
-    # extract data needed for visuals
+
+    # Data for category frequency vizualization
+    category_instances = []
+    for category in gl.disaster_response_target_columns:
+        category_instances.append(sum(disaster_df[category].values))
+
+    # Data for genre visualization
     genre_counts = disaster_df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
     graphs = [
+        # Visualize how many tweets in each category
+        dict(
+            data=[
+                dict(
+                    x=gl.disaster_response_target_columns,
+                    y=category_instances,
+                    type='bar'
+                )
+            ],
+            layout=dict(
+                title='Number of tweets in each category'
+            )
+        ),
+        # Visualize how many tweets in each genre
         dict(
             data=[
                 dict(
