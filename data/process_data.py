@@ -45,6 +45,9 @@ def clean_data(disaster_df):
     # (Based on the dupe summary, dupe ids mean dupe rows)
     disaster_df = disaster_df.drop_duplicates(subset='id')
 
+    # Replace all '2's in 'related' with '1's
+    disaster_df.loc[(disaster_df.related == 2), 'related'] = 1
+
     # Check dupes (if this prints anything, there are)
     # print_disaster_dupe_summary()
 

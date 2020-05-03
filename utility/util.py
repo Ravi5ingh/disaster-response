@@ -133,8 +133,8 @@ def try_word2vec(word):
 
     global google_word2vec_model
     global word2vec_cache
-    model_filename = __file__[0:__file__.rindex('\\')] + '\\..\\models\\word2vec\\GoogleWord2VecModel.bin'
-    cache_filename = __file__[0:__file__.rindex('\\')] + '\\..\\models\\word2vec\\word2vec_cache.pkl'
+    model_filename = __file__[0:__file__.rindex('\\')] + '\\..\\models\\nl\\GoogleWord2VecModel.bin'
+    cache_filename = __file__[0:__file__.rindex('\\')] + '\\..\\models\\nl\\word2vec_cache.pkl'
 
     # Check cache
     if word2vec_cache is None:
@@ -203,7 +203,7 @@ def read_db(database_filename, table_name):
     engine = sq.create_engine('sqlite:///' + database_filename)
     return pd.read_sql(table_name, con=engine)
 
-def to_df(df, database_filename, table_name, index = False):
+def to_db(df, database_filename, table_name, index = False):
     """
     Save a data frame as a SQLite DB file to the given location with the given table name
     :param df: The data frame to save
