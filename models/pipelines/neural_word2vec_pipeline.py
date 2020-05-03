@@ -56,7 +56,7 @@ class NeuralWord2VecPipeline:
         :return: The pipeline and the split up training data
         """
 
-        print('Create MLPClassifier Pipeline...')
+        print('Create Neural Word2Vec Pipeline...')
 
         X = self.__disaster__['message'].values
         Y = self.__disaster__[gl.disaster_response_target_columns].values
