@@ -2,8 +2,10 @@ import utility.util as ut
 import sklearn.pipeline as pi
 import sklearn.model_selection as ms
 import sklearn.neural_network as nn
+import sklearn.metrics as me
 import models.pipelines.transformers.google_word_vectorizer as go
 import global_variables as gl
+import numpy as np
 
 class NeuralWord2VecPipeline:
     """
@@ -89,11 +91,45 @@ class NeuralWord2VecPipeline:
 
         y_pred = self.__grid_searcher__.predict(x_test)
 
+        try:
+            self.__print_summary__(y_test, y_pred)
+        except:
+            print('An unexpected error occurred while trying to print summary. Carrying on...')
+
         print('Performed grid search. Accuracy: ' + str(self.__get_accuracy__(y_test, y_pred)))
 
         best_parameters = self.__grid_searcher__.best_estimator_.get_params()
         for param_name in sorted(parameters.keys()):
             print("\t%s: %r" % (param_name, best_parameters[param_name]))
+
+    def __print_summary__(self, y_test, y_pred):
+        """
+        Print the summary for each category
+        :return:
+        """
+
+        # Transpose values to enable category iteration
+        y_test = np.array(y_test).T
+        y_pred = np.array(y_pred).T
+
+        # Print confusion matrix for each category
+        for i in range(0, len(gl.disaster_response_target_columns)):
+
+            try:
+                print('Confusion Matrix for ' + str(gl.disaster_response_target_columns[i]))
+                conf_matrix = me.confusion_matrix(y_test[i], y_pred[i])
+                print(me.confusion_matrix(y_test[i], y_pred[i]))
+                if len(conf_matrix) > 1:
+                    precision = conf_matrix[1][1] / (conf_matrix[1][1] + conf_matrix[0][1])
+                    recall = conf_matrix[1][1] / (conf_matrix[1][1] + conf_matrix[1][0])
+                    print('Precision: ' + str(precision))
+                    print('Recall: ' + str(recall))
+                    print('F1 Score: ' + str(2 * ((precision * recall) / (precision + recall))))
+                print('-------------')
+            except:
+                print('Error occurred while trying to print summary for category at index ' + str(i))
+
+        pass
 
     def __get_accuracy__(self, y_test, y_pred):
         """

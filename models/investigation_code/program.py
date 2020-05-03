@@ -10,11 +10,24 @@ import ast
 import numpy as np
 
 
-disaster = ut.read_csv('../../data/disaster.csv')
 
-disaster.loc[(disaster.related == 2), 'related']=1
+y1 = [
+    [1,1,0],
+    [1,1,0],
+    [1,0,0],
+    [0,1,0]
+]
 
-rr = disaster[disaster['related']==2]
+for e in y1:
+    print(e)
+
+y1 = np.array(y1).T
+
+print('----')
+for e in y1:
+    print(e)
+
+# X = np.array(X).T.tolist()
 
 # model = pn.NeuralWord2VecPipeline('../../data/DisasterResponse.db', 'Disaster')
 #
