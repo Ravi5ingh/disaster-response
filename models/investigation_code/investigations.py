@@ -261,7 +261,7 @@ def create_normalized_disaster_to(file_name):
     :param file_name: The name to output to
     """
 
-    disaster = ut.read_csv('../data/disaster.csv')\
+    disaster = ut.read_csv('../../data/disaster.csv')\
         .pipe(nlp.remove_columns)\
         .pipe(nlp.one_hot_encode_genre)\
         .pipe(nlp.normalize_related_category_values)\

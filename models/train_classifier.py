@@ -1,5 +1,6 @@
 import sys
 import models.pipelines.sparsevec_randomforest_pipeline as sp
+import models.pipelines.neural_word2vec_pipeline as nn
 import utility.util as ut
 
 def main():
@@ -11,7 +12,7 @@ def main():
         database_filepath, table_name, model_filepath = sys.argv[1:]
         
         print('Create and Fit Pipeline...')
-        model = sp.SparseVecRandomForestPipeline(database_filepath, 'Disaster')
+        model = nn.NeuralWord2VecPipeline(database_filepath, 'Disaster')
         model.init_fit_eval()
 
         print('Saving pipeline...\n    PIPELINE: {}'.format(model_filepath))
