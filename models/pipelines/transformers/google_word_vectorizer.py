@@ -42,9 +42,7 @@ class GoogleWordVectorizer(te.BaseEstimator):
                 ut.printover('(fit_transform) Vectorized ' + str(i) + ' of ' + str(total))
 
         print('\n')
-        ret_val = np.asarray(ret_val)
-
-        return dc.PCA(n_components=36).fit_transform(ret_val)
+        return np.asarray(ret_val)
 
     def fit(self, messages):
         pass
@@ -81,9 +79,7 @@ class GoogleWordVectorizer(te.BaseEstimator):
                 ut.printover('(transform) Vectorized ' + str(i) + ' of ' + str(total))
 
         print('\n')
-        ret_val = np.asarray(ret_val)
-
-        return dc.PCA(n_components=36).fit_transform(ret_val)
+        return np.asarray(ret_val)
 
     def __tokenize_tweet__(self, tweet):
         """

@@ -4,4 +4,3 @@ __pycache__/
 
 # Need to find a binary storage solutions for these files
 GoogleWord2VecModel.bin
-models/model.pkl

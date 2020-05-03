@@ -33,6 +33,21 @@ class NeuralWord2VecPipeline:
             }
         )
 
+    def predict(self, tweet):
+        """
+        Classify the tweet in terms of the categories concerned
+        :param tweet: The raw tweet
+        :return: The classifications for each concerned category
+        """
+
+        predictions = {}
+        i = 0
+        for category in gl.disaster_response_target_columns:
+            predictions[category] = self.__grid_searcher__.predict([tweet])[0][i]
+            i += 1
+
+        return predictions
+
     def __build_pipeline__(self):
         """
         Build the pipeline, and split training data
@@ -68,15 +83,15 @@ class NeuralWord2VecPipeline:
         :param parameters: Grid Search Parameters
         """
 
-        cv = ms.GridSearchCV(pipeline, param_grid=parameters, n_jobs=-1)
+        self.__grid_searcher__ = ms.GridSearchCV(pipeline, param_grid=parameters, n_jobs=-1)
 
-        cv.fit(x_train, y_train)
+        self.__grid_searcher__.fit(x_train, y_train)
 
-        y_pred = cv.predict(x_test)
+        y_pred = self.__grid_searcher__.predict(x_test)
 
         print('Performed grid search. Accuracy: ' + str(self.__get_accuracy__(y_test, y_pred)))
 
-        best_parameters = cv.best_estimator_.get_params()
+        best_parameters = self.__grid_searcher__.best_estimator_.get_params()
         for param_name in sorted(parameters.keys()):
             print("\t%s: %r" % (param_name, best_parameters[param_name]))
 
