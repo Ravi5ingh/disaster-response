@@ -3,7 +3,7 @@
 This is an attempt to use NLP and ML to identify tweets that refer to real disasters. If you follow the steps, then 
 what you will end up with is a app running at http://localhost:3001/ that can classify tweets.
 
-This project is currently running here: https://a7518b01.ngrok.io/
+This project is currently running here: http://159.65.28.124:3001/
 
 ## PyCharm Setup
 <ol>
