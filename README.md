@@ -1,9 +1,9 @@
 # Disaster Response Pipeline Project
 
-This is an attempt to use NLP and ML to identify tweets that refer to real disasters. If you follow the steps, then 
+This is an app that uses NLP and ML to identify tweets that refer to real disasters. If you follow the steps, then 
 what you will end up with is a app running at http://localhost:3001/ that can classify tweets.
 
-This project is currently running here: http://159.65.28.124:3001/
+This project is currently running here <a href="http://159.65.28.124:3001/">here</a>
 
 ## PyCharm Setup
 <ol>
